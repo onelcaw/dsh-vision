@@ -40,11 +40,27 @@
 
 ## 安装
 
+**前提**:需要 `pnpm`(dsh 的插件管理器依赖它)。没有就先装一次:
+
 ```sh
-npx -y @deepseek-ai/dsh plugin --profile web add file:"<本插件目录>"
+npm install -g pnpm
+# 或:corepack enable pnpm
+```
+
+然后一条命令安装(直接从 GitHub,无需先 clone):
+
+```sh
+npx -y @deepseek-ai/dsh plugin --profile web add github:xixiaoying08-max/dsh-vision
 ```
 
 安装后**重启 dsh**。
+
+### 本地开发安装(改代码用)
+
+```sh
+git clone https://github.com/xixiaoying08-max/dsh-vision
+npx -y @deepseek-ai/dsh plugin --profile web add file:"$(pwd)/dsh-vision"
+```
 
 ## 使用
 
