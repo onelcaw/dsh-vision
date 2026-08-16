@@ -63,7 +63,7 @@ npm install -g pnpm
 然后一条命令安装(直接从 GitHub,无需先 clone):
 
 ```sh
-npx -y @deepseek-ai/dsh plugin --profile web add github:xixiaoying08-max/dsh-vision
+npx -y @deepseek-ai/dsh plugin --profile web add github:onelcaw/dsh-vision
 ```
 
 安装后**重启 dsh**。
@@ -71,7 +71,7 @@ npx -y @deepseek-ai/dsh plugin --profile web add github:xixiaoying08-max/dsh-vis
 ### 本地开发安装(改代码用)
 
 ```sh
-git clone https://github.com/xixiaoying08-max/dsh-vision
+git clone https://github.com/onelcaw/dsh-vision
 npx -y @deepseek-ai/dsh plugin --profile web add file:"$(pwd)/dsh-vision"
 ```
 
