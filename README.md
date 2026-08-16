@@ -2,6 +2,25 @@
 
 给 DeepSeek Harness(dsh)用的图片识别桥接插件。DeepSeek 文本模型本身收不了图,这个插件把图片转成文字,让文本模型也能"看懂"图片内容。
 
+## 快速上手(4 步)
+
+```mermaid
+flowchart TD
+    A["① 装 pnpm<br/>npm install -g pnpm"] --> B["② 装插件<br/>dsh plugin add github:onelcaw/dsh-vision"]
+    B --> C["③ 配 key<br/>选后端一键生成 config.json"]
+    C --> D["④ 重启 dsh,选 vision 变体"]
+    D --> E["粘贴/上传图片 → 自动识别"]
+    style E fill:#f9f,stroke:#333
+```
+
+1. **装 pnpm**(一次性):`npm install -g pnpm`
+2. **装插件**:
+   ```sh
+   npx -y @deepseek-ai/dsh plugin --profile web add github:onelcaw/dsh-vision
+   ```
+3. **配 key**:往下翻到「一键配置」,选一个后端,整段复制到终端执行(把 key 换成你自己的)
+4. **重启 dsh**,在模型选择器里选 `DeepSeek (vision)`,然后粘贴/上传图片即可自动识别
+
 ## 它做了什么
 
 1. **`vision_read_image` 工具** —— 传入本地文件路径或 http(s) URL,返回图片内容的文字转写。
@@ -10,6 +29,16 @@
 ## 工作原理(视觉引擎)
 
 调用任意 **OpenAI 兼容的 `/chat/completions` 视觉接口**,把图片以 `image_url`(base64 或 URL)形式发给视觉模型,拿到文字描述后注入对话。
+
+```mermaid
+flowchart LR
+    A["粘贴 / 上传图片"] --> B["dsh-vision 插件"]
+    B --> C["视觉 API<br/>(baseUrl + apiKey + model)"]
+    C --> D["返回文字描述"]
+    D --> E["注入对话"]
+    E --> F["DeepSeek 文本模型<br/>看懂后回答"]
+    style C fill:#bbf,stroke:#333
+```
 
 ## 配置
 
