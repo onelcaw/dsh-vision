@@ -1,0 +1,7 @@
+# dsh-vision bundle layer: mount the image-recognition bridge plugin.
+# The plugin registers a `vision_read_image` tool and a `(vision)` model
+# variant (see dsh/index.js). Engine settings live in ~/.dsh-vision/config.json,
+# NOT here, so you can change keys/endpoints without touching this file.
+- insert:
+    - id: dsh-vision
+      name: 'dsh-vision'

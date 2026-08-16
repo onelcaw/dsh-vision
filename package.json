@@ -1,0 +1,17 @@
+{
+  "name": "dsh-vision",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Image-recognition bridge for DeepSeek Harness: converts pasted/uploaded images to text through any OpenAI-compatible vision API, so text-only models can read image content.",
+  "license": "MIT",
+  "exports": {
+    ".": "./dsh/index.js",
+    "./dsh": "./dsh/index.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
