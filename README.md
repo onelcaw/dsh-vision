@@ -39,17 +39,106 @@
 | `timeoutMs` | ❌ | 单次读图超时(毫秒),默认 120000(2 分钟)。 |
 | `maxImageBytes` | ❌ | 单张图片大小上限(字节),默认 25165824(即 25 × 1024 × 1024 = 25 MB)。 |
 
-### 常见后端怎么填
+### 一键配置(选一个,整段复制到终端执行)
 
-| 后端 | `baseUrl` | `model` 示例 | `apiKey` 说明 |
-| :-- | :-- | :-- | :-- |
-| OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` | OpenAI 的 `sk-...` |
-| Gemini(兼容端点) | `https://generativelanguage.googleapis.com/v1beta/openai` | `gemini-2.0-flash` | Google AI Studio 的 `AIza...` |
-| Qwen-VL(通义) | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-vl-plus` | 阿里云百炼的 `sk-...` |
-| GLM-4V(智谱) | `https://open.bigmodel.cn/api/paas/v4` | `glm-4v` | 智谱的 key |
-| Moonshot | `https://api.moonshot.cn/v1` | `moonshot-v1-8k-vision-preview` | Moonshot 的 `sk-...` |
-| DeepSeek-VL(自建/vLLM) | 你的服务地址 | 你的模型名 | 你的服务 key |
-| Ollama 本地 | `http://localhost:11434/v1` | `llava` / `qwen2.5vl` 等 | 随便填,如 `ollama` |
+> 下面每条命令都会**直接生成** `~/.dsh-vision/config.json`(只写必填的 3 个字段,其余用默认值)。把 `"把key粘贴到这里"` 换成你自己的 key 即可。
+
+#### Gemini(免费,推荐)
+
+```sh
+mkdir -p ~/.dsh-vision && cat > ~/.dsh-vision/config.json <<'EOF'
+{
+  "baseUrl": "https://generativelanguage.googleapis.com/v1beta/openai",
+  "apiKey": "把key粘贴到这里",
+  "model": "gemini-2.0-flash"
+}
+EOF
+chmod 600 ~/.dsh-vision/config.json
+```
+key 获取:[aistudio.google.com](https://aistudio.google.com) → Get API key(免费、无需绑卡)
+
+#### OpenAI
+
+```sh
+mkdir -p ~/.dsh-vision && cat > ~/.dsh-vision/config.json <<'EOF'
+{
+  "baseUrl": "https://api.openai.com/v1",
+  "apiKey": "把key粘贴到这里",
+  "model": "gpt-4o-mini"
+}
+EOF
+chmod 600 ~/.dsh-vision/config.json
+```
+key 获取:[platform.openai.com/api-keys](https://platform.openai.com/api-keys)
+
+#### Qwen-VL(通义千问)
+
+```sh
+mkdir -p ~/.dsh-vision && cat > ~/.dsh-vision/config.json <<'EOF'
+{
+  "baseUrl": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+  "apiKey": "把key粘贴到这里",
+  "model": "qwen-vl-plus"
+}
+EOF
+chmod 600 ~/.dsh-vision/config.json
+```
+key 获取:[bailian.console.aliyun.com](https://bailian.console.aliyun.com) → API-KEY
+
+#### GLM-4V(智谱)
+
+```sh
+mkdir -p ~/.dsh-vision && cat > ~/.dsh-vision/config.json <<'EOF'
+{
+  "baseUrl": "https://open.bigmodel.cn/api/paas/v4",
+  "apiKey": "把key粘贴到这里",
+  "model": "glm-4v"
+}
+EOF
+chmod 600 ~/.dsh-vision/config.json
+```
+key 获取:[open.bigmodel.cn](https://open.bigmodel.cn) → API Keys
+
+#### Moonshot(Kimi)
+
+```sh
+mkdir -p ~/.dsh-vision && cat > ~/.dsh-vision/config.json <<'EOF'
+{
+  "baseUrl": "https://api.moonshot.cn/v1",
+  "apiKey": "把key粘贴到这里",
+  "model": "moonshot-v1-8k-vision-preview"
+}
+EOF
+chmod 600 ~/.dsh-vision/config.json
+```
+key 获取:[platform.moonshot.cn](https://platform.moonshot.cn) → API Key
+
+#### Ollama 本地(免费、离线、无需 key)
+
+```sh
+mkdir -p ~/.dsh-vision && cat > ~/.dsh-vision/config.json <<'EOF'
+{
+  "baseUrl": "http://localhost:11434/v1",
+  "apiKey": "ollama",
+  "model": "llava"
+}
+EOF
+chmod 600 ~/.dsh-vision/config.json
+```
+前提:先装 [ollama.com](https://ollama.com),并 `ollama pull llava`(也可用 `qwen2.5vl` 等视觉模型,`model` 换成对应名即可)。
+
+#### DeepSeek-VL / 其它自建(OpenAI 兼容)
+
+```sh
+mkdir -p ~/.dsh-vision && cat > ~/.dsh-vision/config.json <<'EOF'
+{
+  "baseUrl": "你的服务地址(不含 /chat/completions)",
+  "apiKey": "你的服务key",
+  "model": "你的模型名"
+}
+EOF
+chmod 600 ~/.dsh-vision/config.json
+```
 
 ## 安装
 
