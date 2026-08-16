@@ -13,30 +13,43 @@
 
 ## 配置
 
-配置文件:`~/.dsh-vision/config.json`(首次启动会自动生成,权限 0600)。
+配置文件:`~/.dsh-vision/config.json`(首次启动会自动生成,权限 0600)。改完保存后**无需重启 dsh**,下次读图即生效(每次读图都会重新读取)。
 
 ```json
 {
   "baseUrl": "https://api.openai.com/v1",
   "apiKey": "",
   "model": "",
-  "prompt": "……(默认转写提示词)……",
+  "prompt": "Transcribe this image in full detail. Reproduce all visible text (OCR) verbatim, ...",
   "maxTokens": 2048,
   "timeoutMs": 120000,
   "maxImageBytes": 25165824
 }
 ```
 
-只需填三个字段,举几个常见后端:
+### 每个字段的含义
 
-| 后端 | baseUrl | model 示例 |
-| :-- | :-- | :-- |
-| OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` |
-| Gemini(兼容端点) | `https://generativelanguage.googleapis.com/v1beta/openai` | `gemini-2.0-flash`(key 用 Gemini key) |
-| Qwen-VL(通义) | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-vl-plus` |
-| GLM-4V(智谱) | `https://open.bigmodel.cn/api/paas/v4` | `glm-4v` |
-| Moonshot | `https://api.moonshot.cn/v1` | `moonshot-v1-8k-vision-preview` |
-| Ollama 本地 | `http://localhost:11434/v1` | `llava`(apiKey 随便填) |
+| 字段 | 必填 | 说明 |
+| :-- | :--: | :-- |
+| `baseUrl` | ✅ | 视觉 API 的根地址(**不含** `/chat/completions`)。按后端填,见下表。 |
+| `apiKey` | ✅ | 该后端的 API 密钥。Ollama 本地模型可随便填一个占位(如 `ollama`)。 |
+| `model` | ✅ | 视觉模型名,**必须支持图片输入**。按后端填,见下表。 |
+| `prompt` | ❌ | 发给视觉模型的转写指令。默认已要求逐字 OCR + 详细描述,一般不用改。 |
+| `maxTokens` | ❌ | 视觉模型返回文字的最大 token 数,默认 2048;图很密/文字很多时可调大。 |
+| `timeoutMs` | ❌ | 单次读图超时(毫秒),默认 120000(2 分钟)。 |
+| `maxImageBytes` | ❌ | 单张图片大小上限(字节),默认 25165824(即 25 × 1024 × 1024 = 25 MB)。 |
+
+### 常见后端怎么填
+
+| 后端 | `baseUrl` | `model` 示例 | `apiKey` 说明 |
+| :-- | :-- | :-- | :-- |
+| OpenAI | `https://api.openai.com/v1` | `gpt-4o-mini` | OpenAI 的 `sk-...` |
+| Gemini(兼容端点) | `https://generativelanguage.googleapis.com/v1beta/openai` | `gemini-2.0-flash` | Google AI Studio 的 `AIza...` |
+| Qwen-VL(通义) | `https://dashscope.aliyuncs.com/compatible-mode/v1` | `qwen-vl-plus` | 阿里云百炼的 `sk-...` |
+| GLM-4V(智谱) | `https://open.bigmodel.cn/api/paas/v4` | `glm-4v` | 智谱的 key |
+| Moonshot | `https://api.moonshot.cn/v1` | `moonshot-v1-8k-vision-preview` | Moonshot 的 `sk-...` |
+| DeepSeek-VL(自建/vLLM) | 你的服务地址 | 你的模型名 | 你的服务 key |
+| Ollama 本地 | `http://localhost:11434/v1` | `llava` / `qwen2.5vl` 等 | 随便填,如 `ollama` |
 
 ## 安装
 
