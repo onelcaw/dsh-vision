@@ -79,7 +79,7 @@ mkdir -p ~/.dsh-vision && cat > ~/.dsh-vision/config.json <<'EOF'
 {
   "baseUrl": "https://generativelanguage.googleapis.com/v1beta/openai",
   "apiKey": "把key粘贴到这里",
-  "model": "gemini-2.0-flash"
+  "model": "gemini-3.6-flash"
 }
 EOF
 chmod 600 ~/.dsh-vision/config.json
